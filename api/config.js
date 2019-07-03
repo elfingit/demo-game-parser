@@ -2,6 +2,7 @@ const de_lotto_parser = require('../parsers/de_lotto');
 const us_powerball_parser = require('../parsers/us_powerball');
 const us_mega_millions_parser = require('../parsers/megamillions');
 const euromillions_parser = require('../parsers/euromillions');
+const eurojackpot_parser = require('../parsers/eurojackpot');
 
 const config = {
     games: {
@@ -21,6 +22,10 @@ const config = {
         'euromillions': {
             result_url: 'https://www.euro-millions.com/',
             parser: euromillions_parser
+        },
+        'eurojackpot': {
+            result_url: 'https://www.eurojackpot.org/en/',
+            parser: eurojackpot_parser
         }
     }
 
