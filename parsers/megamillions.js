@@ -100,6 +100,10 @@ const megamillions_parser = {
             browser.close();
         }
 
+        if (game_data instanceof Error) {
+            return game_data;
+        }
+
         let extra_ball = game_data[0].pop();
 
         return {
