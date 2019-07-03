@@ -5,9 +5,15 @@ function fetch_data(url) {
         axios.get(url)
             .then((response) => {
 
+                let main_result = response.data[0].field_winning_numbers.split(',');
+                let extra_ball = main_result.pop();
+
                 return resolve({
-                    'numbers': response.data[0].field_winning_numbers.split(','),
-                    'extra_game': response.data[0].field_multiplier,
+                    'main_result': main_result,
+                    'extra_ball': extra_ball,
+                    'additional_games': {
+                        'megaplier': response.data[0].field_multiplier
+                    },
                     'date': response.data[0].field_draw_date
                 });
 

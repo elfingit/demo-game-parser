@@ -16,7 +16,7 @@ function load_page(url) {
                 return page.goto(url);
             }).then(() => {
                 return pg.waitFor(2000);
-            }).then((page) => {
+            }).then(() => {
                 return resolve([ brws, pg ])
             }).catch((err) => {
                 return reject(err);

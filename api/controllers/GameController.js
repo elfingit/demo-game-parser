@@ -20,8 +20,6 @@ class GameController
             }).status(500).end();
         }
 
-        console.dir(result);
-
         return resp.json(result).end();
 
     }
