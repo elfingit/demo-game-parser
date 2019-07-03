@@ -3,6 +3,7 @@ const us_powerball_parser = require('../parsers/us_powerball');
 const us_mega_millions_parser = require('../parsers/megamillions');
 const euromillions_parser = require('../parsers/euromillions');
 const eurojackpot_parser = require('../parsers/eurojackpot');
+const uk_national_parser = require('../parsers/uk_national');
 
 const config = {
     games: {
@@ -26,6 +27,10 @@ const config = {
         'eurojackpot': {
             result_url: 'https://www.eurojackpot.org/en/',
             parser: eurojackpot_parser
+        },
+        'uk_national': {
+            result_url: 'https://www.national-lottery.co.uk/results',
+            parser: uk_national_parser
         }
     }
 
