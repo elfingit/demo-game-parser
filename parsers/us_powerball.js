@@ -31,7 +31,7 @@ function fetch_jackpot(page) {
                 return divElem.$eval('span.number', node => node.innerText)
             }).then((data) => {
                 let jackPotData = data.split(' ');
-            if (jackPotData.length > 0 && jackPotData[1] == 'Million') {
+                if (jackPotData.length > 0 && jackPotData[1] == 'Million') {
                     let number = parseInt(jackPotData[0].replace('$', ''), 10) * 1000000;
                     return resolve(number);
                 }

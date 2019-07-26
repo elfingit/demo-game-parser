@@ -20,6 +20,7 @@ const config = {
         },
         'us_mega_millions': {
             result_url: 'https://www.megamillions.com/Winning-Numbers.aspx',
+            jackpot_url: 'https://www.megamillions.com/Winning-Numbers.aspx',
             parser: us_mega_millions_parser
         },
         'euromillions': {

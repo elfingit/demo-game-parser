@@ -75,6 +75,24 @@ function fetch_date(page) {
     });
 }
 
+function fetch_jackpot(page) {
+    return new Promise((resolve, reject) => {
+        page.$eval('span.estJackpot', node => node.innerText)
+            .then((data) => {
+
+                let jackPotData = data.split(' ');
+                if (jackPotData.length > 0 && jackPotData[1] == 'Million') {
+                    let number = parseInt(jackPotData[0].replace('$', ''), 10) * 1000000;
+                    return resolve(number);
+                }
+
+                return resolve(0);
+            }).catch((err) => {
+                return reject(err);
+        });
+    });
+}
+
 function fetch_main_result(page) {
     return new Promise((resolve, reject) => {
         page.$('ul.numbers')
@@ -89,8 +107,8 @@ function fetch_main_result(page) {
 }
 
 const megamillions_parser = {
-    async parse(url) {
-        let result = await load_page(url);
+    async parse(res_url, jackpot_url) {
+        let result = await load_page(res_url);
         let browser = result[0];
         let page = result[1];
 
@@ -104,6 +122,20 @@ const megamillions_parser = {
             return game_data;
         }
 
+        let jack_pot = await load_page(jackpot_url);
+        let jBrowser = jack_pot[0];
+        let jPage = jack_pot[1];
+
+        let jackpot_data = await fetch_jackpot(jPage);
+
+        if (jBrowser) {
+            await jBrowser.close();
+        }
+
+        if (jackpot_data instanceof Error) {
+            return jackpot_data;
+        }
+
         let extra_ball = game_data[0].pop();
 
         return {
@@ -112,7 +144,8 @@ const megamillions_parser = {
             'additional_games': {
                 'megaplier': game_data[2]
             },
-            'date': game_data[1]
+            'date': game_data[1],
+            'jack_pot': jackpot_data
         };
     }
 };
