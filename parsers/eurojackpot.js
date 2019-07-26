@@ -71,6 +71,23 @@ function fetch_extra_ball(page) {
     });
 }
 
+function fetch_jackpot(page) {
+    return new Promise((resolve, reject) => {
+        page.$('div.next-jackpot')
+            .then((divElem) => {
+
+                return divElem.$eval('span.jackpot', node => node.innerText);
+
+            }).then((data) => {
+                let number = parseInt(data) * 1000000;
+                return resolve(number);
+            })
+            .catch((err) => {
+                return reject(err);
+            });
+    });
+}
+
 function fetch_result(page) {
     return new Promise((resolve, reject) => {
         let main_result = fetch_main_result(page);
@@ -87,9 +104,9 @@ function fetch_result(page) {
 }
 
 const eurojackpot_parser = {
-    async parse(url) {
+    async parse(res_url, jackpot_url) {
 
-        let result = await load_page(url);
+        let result = await load_page(res_url);
         let browser = result[0];
         let page = result[1];
 
@@ -99,10 +116,29 @@ const eurojackpot_parser = {
             browser.close();
         }
 
+        if (game_data instanceof Error) {
+            return  game_data;
+        }
+
+        let jack_pot = await load_page(jackpot_url);
+        let jBrowser = jack_pot[0];
+        let jPage = jack_pot[1];
+
+        let jackpot_data = await fetch_jackpot(jPage);
+
+        if (jBrowser) {
+            await jBrowser.close();
+        }
+
+        if (jackpot_data instanceof Error) {
+            return jackpot_data;
+        }
+
         return {
             'main_result': game_data[0],
             'extra_ball': game_data[2],
-            'date': game_data[1]
+            'date': game_data[1],
+            'jack_pot': jackpot_data
         };
     }
 };

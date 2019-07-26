@@ -30,6 +30,7 @@ const config = {
         },
         'eurojackpot': {
             result_url: 'https://www.eurojackpot.org/en/',
+            jackpot_url: 'https://www.eurojackpot.org/en/',
             parser: eurojackpot_parser
         },
         'uk_national': {
