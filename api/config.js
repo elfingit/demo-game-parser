@@ -35,6 +35,7 @@ const config = {
         },
         'uk_national': {
             result_url: 'https://www.national-lottery.co.uk/results',
+            jackpot_url: 'https://www.national-lottery.co.uk/results',
             parser: uk_national_parser
         }
     }
