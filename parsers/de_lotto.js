@@ -36,6 +36,8 @@ function fetch_jackpot(page) {
                     let jackpot = jackPotData[0] * 1000000;
                     return resolve(jackpot);
                 }
+
+                return  resolve(0)
             }).catch((err) => {
                 return reject(err);
             });

@@ -15,6 +15,7 @@ const config = {
 
         'us_powerball': {
             result_url: 'https://www.powerball.com/api/v1/numbers/powerball/recent?_format=json',
+            jackpot_url: 'https://www.powerball.com/',
             parser: us_powerball_parser
         },
         'us_mega_millions': {
