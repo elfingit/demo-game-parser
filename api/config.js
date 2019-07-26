@@ -25,6 +25,7 @@ const config = {
         },
         'euromillions': {
             result_url: 'https://www.euro-millions.com/',
+            jackpot_url: 'https://www.euro-millions.com/',
             parser: euromillions_parser
         },
         'eurojackpot': {
