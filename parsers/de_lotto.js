@@ -24,6 +24,24 @@ function load_page(url) {
     });
 }
 
+function fetch_jackpot(page) {
+    return new Promise((resolve, reject) => {
+        page.$('div.HomeGameTeaserItem--lotto6aus49')
+            .then((divElem) => {
+                return divElem.$eval('strong.HomeGameTeaserItem__jackpot', node => node.innerText);
+            }).then((data) => {
+                let jackPotData = data.split(' ');
+
+                if (jackPotData.length > 0 && jackPotData[1] == 'Millionen') {
+                    let jackpot = jackPotData[0] * 1000000;
+                    return resolve(jackpot);
+                }
+            }).catch((err) => {
+                return reject(err);
+            });
+    });
+}
+
 function fetch_result(page) {
 
     return new Promise((resolve, reject) => {
@@ -125,19 +143,33 @@ function fetch_main_result(page) {
 
 const de_lotto_parser = {
 
-    async parse(url) {
-        let result = await load_page(url);
+    async parse(res_url, jackpot_url) {
+        let result = await load_page(res_url);
         let browser = result[0];
         let page = result[1];
 
         let game_data = await fetch_result(page);
 
         if (browser) {
-            browser.close();
+            await browser.close();
+        }
+
+        let jack_pot = await load_page(jackpot_url);
+        let jBrowser = jack_pot[0];
+        let jPage = jack_pot[1];
+
+        let jackpot_data = await fetch_jackpot(jPage);
+
+        if (jBrowser) {
+            await jBrowser.close();
         }
 
         if (game_data instanceof Error) {
             return game_data;
+        }
+
+        if (jackpot_data instanceof Error) {
+            return jackpot_data;
         }
 
         return {
@@ -147,7 +179,8 @@ const de_lotto_parser = {
                 'spiel77': game_data[2],
                 'super6': game_data[3]
             },
-            'date': game_data[4]
+            'date': game_data[4],
+            'jack_pot': jackpot_data
         };
     }
 

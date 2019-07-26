@@ -9,6 +9,7 @@ const config = {
     games: {
         'de_lotto': {
             result_url: 'https://www.lotto.de/lotto-6aus49/lottozahlen',
+            jackpot_url: 'https://www.lotto.de/',
             parser: de_lotto_parser
         },
 
