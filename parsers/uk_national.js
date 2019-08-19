@@ -91,9 +91,8 @@ function fetch_jackpot(page) {
                 return divElem.$eval('span.next_draw_amount', node => node.innerText);
             }).then((data) => {
 
-                let regexp = /(\d+\.\d{1,2})/;
+                let regexp = /(\d+(\.\d{1,2})?)/;
                 let matches = regexp.exec(data);
-
                 let number = parseFloat(matches[1]) * 1000000;
                 return resolve(number);
             }).catch((err) => {
