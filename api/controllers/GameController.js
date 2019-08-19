@@ -11,6 +11,8 @@ class GameController
             return resp.json({'message': 'Not found'}).status(404).end();
         }
 
+        console.info('Getting result for: ' + game_code);
+
         let result = await config.games[game_code]
                 .parser
                 .parse(
