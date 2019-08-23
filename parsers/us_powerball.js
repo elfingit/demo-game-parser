@@ -82,6 +82,10 @@ const us_powerball_parser = {
 
         let jackpot_data = await fetch_jackpot(jPage);
 
+        if (jPage) {
+            await jPage.close();
+        }
+
         if (jBrowser) {
             await jBrowser.close();
         }

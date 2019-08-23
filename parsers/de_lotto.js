@@ -152,6 +152,10 @@ const de_lotto_parser = {
 
         let game_data = await fetch_result(page);
 
+        if (page) {
+            await page.close();
+        }
+
         if (browser) {
             await browser.close();
         }
@@ -161,6 +165,10 @@ const de_lotto_parser = {
         let jPage = jack_pot[1];
 
         let jackpot_data = await fetch_jackpot(jPage);
+
+        if (jPage) {
+            await jPage.close();
+        }
 
         if (jBrowser) {
             await jBrowser.close();

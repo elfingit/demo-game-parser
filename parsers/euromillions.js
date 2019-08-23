@@ -129,8 +129,12 @@ const euromillions_parser = {
 
         let game_data = await fetch_result(page);
 
+        if (page) {
+            await page.close();
+        }
+
         if (browser) {
-            browser.close();
+            await browser.close();
         }
 
         let jack_pot = await load_page(jackpot_url);
@@ -138,6 +142,10 @@ const euromillions_parser = {
         let jPage = jack_pot[1];
 
         let jackpot_data = await fetch_jackpot(jPage);
+
+        if (jPage) {
+            await jPage.close();
+        }
 
         if (jBrowser) {
             await jBrowser.close();
