@@ -5,7 +5,6 @@ function fetch_data(url) {
     return new Promise((resolve, reject) => {
         axios.get(url)
             .then((response) => {
-
                 let main_result = response.data[0].field_winning_numbers.split(',');
                 let extra_ball = main_result.pop();
 
@@ -31,11 +30,17 @@ function fetch_jackpot(page) {
                 return divElem.$eval('span.number', node => node.innerText)
             }).then((data) => {
                 let jackPotData = data.split(' ');
-                if (jackPotData.length > 0 && jackPotData[1] == 'Million') {
-                    let number = parseInt(jackPotData[0].replace('$', ''), 10) * 1000000;
-                    return resolve(number);
+            console.log(jackPotData);
+            try {
+                    if (jackPotData.length > 1 && jackPotData[1] == "Million") {
+
+                        let number = parseInt(jackPotData[0].replace('$', ''), 10) * 1000000;
+                        return resolve(number);
+                    }
+                    return resolve(0);
+                } catch (e) {
+                    return reject(e);
                 }
-                return resolve(0);
             }).catch((err) => {
                 return reject(err);
         });
