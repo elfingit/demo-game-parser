@@ -31,8 +31,8 @@ function fetch_jackpot(page) {
                 return divElem.$eval('strong.HomeGameTeaserItem__jackpot', node => node.innerText);
             }).then((data) => {
                 let jackPotData = data.split(' ');
-
-                if (jackPotData.length > 0 && jackPotData[1] == 'Millionen') {
+                console.log(jackPotData);
+            if (jackPotData.length > 0 && jackPotData[1] == 'Millionen') {
                     let jackpot = jackPotData[0] * 1000000;
                     return resolve(jackpot);
                 }

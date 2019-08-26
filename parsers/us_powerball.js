@@ -39,11 +39,14 @@ function fetch_jackpot(page) {
                     }
                     return resolve(0);
                 } catch (e) {
+                    console.log(err);
                     return reject(e);
                 }
-            }).catch((err) => {
+            })
+            .catch((err) => {
+                console.log(err);
                 return reject(err);
-        });
+            });
     });
 }
 
