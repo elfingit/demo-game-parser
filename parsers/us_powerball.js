@@ -57,7 +57,7 @@ function load_page(url) {
         let brws = null;
         let pg = null;
 
-        puppeteer.launch({headless: false})
+        puppeteer.launch()
         .then((browser) => {
             brws = browser;
             return browser.newPage();
