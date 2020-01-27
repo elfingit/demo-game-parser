@@ -3,9 +3,9 @@ const mainRouter = require('./routes/main');
 
 app.use('/api', mainRouter);
 
-const port = process.env.APP_PORT || 3000;
-const host = process.env.APP_HOST || '127.0.0.1';
+const PORT = process.env.APP_PORT || 3000;
+const HOST = process.env.APP_HOST || '127.0.0.1';
 
-app.listen(port, host);
+app.listen(PORT, HOST);
 
-console.log('Server is listening on http://localhost:' + port);
+console.log(`Server is listening on ${HOST}:${PORT}`);
